@@ -1,0 +1,113 @@
+# .gitignore global pour le projet Polyglotte (PolyglotteProject)
+# Contient règles communes pour : Visual Studio / .NET, Node/Vite, IDEs, OS et fichiers temporaires
+
+##############################
+# Visual Studio / .NET
+##############################
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.ntvs*
+*.njsproj
+
+# Build output
+bin/
+obj/
+Debug/
+Release/
+TestResults/
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+
+##############################
+# Backend .NET (PolyglotteBackend)
+##############################
+# Ignore build artifacts and outputs for all backend projects
+/PolyglotteBackend/**/bin/
+/PolyglotteBackend/**/obj/
+/PolyglotteBackend/**/TestResults/
+/PolyglotteBackend/**/artifacts/
+/PolyglotteBackend/**/publish/
+
+# Common intermediate / binary files
+*.pdb
+*.mdb
+*.cache
+*.ilk
+*.log
+
+# Rider / JetBrains caches (already covered by .idea but explicit for backend)
+.idea/
+
+# Don't ignore committed appsettings files by default (keep explicit config files)
+# If you want to ignore local dev settings, add them to a frontend/backend local .gitignore
+
+##############################
+# Node / Frontend
+##############################
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+/.parcel-cache/
+
+# Environment / secrets for frontend (local env files)
+.env
+.env.local
+.env.*.local
+*.local
+
+# npm / yarn / pnpm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+##############################
+# IDEs and editors
+##############################
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.sln.iml
+
+##############################
+# OS generated files
+##############################
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+##############################
+# Logs, temp, coverage
+##############################
+logs/
+*.log
+coverage/
+coverage-final.json
+lcov-report/
+tmp/
+temp/
+*.tmp
+*.temp
+
+##############################
+# Certificates, keys, secrets
+##############################
+*.pfx
+*.pem
+*.key
+secrets.json
+
+##############################
+# Misc
+##############################
+node-repl.history

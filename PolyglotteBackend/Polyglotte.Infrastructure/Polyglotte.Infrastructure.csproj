@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Authentication\JwtTokenService\" />
+    <Folder Include="Authentication\Policies\" />
+    <Folder Include="Observability\OpenTelemetry\" />
+    <Folder Include="Observability\Serilog\" />
+    <Folder Include="Services\" />
+    <Folder Include="Persistence\Mongo\MongoDbOptions\" />
+    <Folder Include="Persistence\Mongo\MongoContext\" />
+    <Folder Include="Persistence\Mongo\Indexes\" />
+    <Folder Include="Persistence\Mongo\Migrations\" />
+    <Folder Include="Persistence\Mongo\" />
+    <Folder Include="Persistence\Mongo\Repositories\" />
+  </ItemGroup>
+
+</Project>

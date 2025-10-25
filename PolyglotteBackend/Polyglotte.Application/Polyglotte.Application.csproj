@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstractions\Services\" />
+    <Folder Include="Abstractions\Persistence\" />
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Mappings\" />
+    <Folder Include="Features\Decks\Commands\" />
+    <Folder Include="Features\Decks\Dtos\" />
+    <Folder Include="Features\Decks\Validators\" />
+    <Folder Include="Features\Decks\Queries\" />
+    <Folder Include="Features\Reviews\Commands\" />
+    <Folder Include="Features\Vocabulary\Commands\" />
+    <Folder Include="Features\Vocabulary\Dtos\" />
+    <Folder Include="Features\Vocabulary\Validators\" />
+    <Folder Include="Features\Vocabulary\Queries\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.API", "Polyglotte.API\Polyglotte.API.csproj", "{EA71196E-8707-4043-A4D9-6F5C9F34CFEE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C971EA0-D535-46FE-89FB-868C4ADFBB44} = {2C971EA0-D535-46FE-89FB-868C4ADFBB44}
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA} = {2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Domain", "Polyglotte.Domain\Polyglotte.Domain.csproj", "{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Application", "Polyglotte.Application\Polyglotte.Application.csproj", "{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0} = {5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Infrastructure", "Polyglotte.Infrastructure\Polyglotte.Infrastructure.csproj", "{2C971EA0-D535-46FE-89FB-868C4ADFBB44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA} = {2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0} = {5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA71196E-8707-4043-A4D9-6F5C9F34CFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA71196E-8707-4043-A4D9-6F5C9F34CFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA71196E-8707-4043-A4D9-6F5C9F34CFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA71196E-8707-4043-A4D9-6F5C9F34CFEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E10573C-C1E7-48E9-BA0F-51039BAF0ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C99A006-BEF6-4002-BA4F-1DEE1F3586CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C971EA0-D535-46FE-89FB-868C4ADFBB44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C971EA0-D535-46FE-89FB-868C4ADFBB44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C971EA0-D535-46FE-89FB-868C4ADFBB44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C971EA0-D535-46FE-89FB-868C4ADFBB44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E46839D-22DB-4CCD-8623-DC613155A01F}
+	EndGlobalSection
+EndGlobal
