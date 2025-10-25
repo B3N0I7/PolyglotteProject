@@ -1,3 +1,4 @@
+using Polyglotte.Infrastructure.Persistence.Mongo.MongoContext;
 
 namespace Polyglotte.API
 {
@@ -13,6 +14,9 @@ namespace Polyglotte.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Register MongoDB (development) via Infrastructure
+            builder.Services.AddMongo(builder.Configuration);
 
             var app = builder.Build();
 

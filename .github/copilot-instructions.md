@@ -1,5 +1,9 @@
 # Instructions pour GitHub Copilot / Guidelines de contribution
 
+# Instructions Copilot
+
+**Avant tout développement ou génération de code, lisez systématiquement tous les fichiers d'instructions dans « .github/instructions/ ».** Ceci est obligatoire pour garantir que toutes les règles du projet sont chargées et appliquées correctement.
+
 Langue: Français
 
 Merci de contribuer au dépôt Polyglotte. Ce fichier donne des consignes précises destinées à GitHub Copilot (et utiles aux développeurs humains) pour générer des suggestions pertinentes et respecter les conventions du projet.
