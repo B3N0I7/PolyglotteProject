@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.API", "Polyglotte.API\Polyglotte.API.csproj", "{CE7D618C-D029-429E-A204-B3B1528D06DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Domain", "Polyglotte.Domain\Polyglotte.Domain.csproj", "{4125CC2B-61F4-41A2-8F20-536E7C2BE37A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Application", "Polyglotte.Application\Polyglotte.Application.csproj", "{FFCD3EF8-6402-4591-B0AE-76F721EB95A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Infrastructure", "Polyglotte.Infrastructure\Polyglotte.Infrastructure.csproj", "{64F074DB-B04B-453B-9FBE-52376D994170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		copilot-instructions.md = copilot-instructions.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE7D618C-D029-429E-A204-B3B1528D06DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7D618C-D029-429E-A204-B3B1528D06DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7D618C-D029-429E-A204-B3B1528D06DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7D618C-D029-429E-A204-B3B1528D06DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4125CC2B-61F4-41A2-8F20-536E7C2BE37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4125CC2B-61F4-41A2-8F20-536E7C2BE37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4125CC2B-61F4-41A2-8F20-536E7C2BE37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4125CC2B-61F4-41A2-8F20-536E7C2BE37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCD3EF8-6402-4591-B0AE-76F721EB95A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCD3EF8-6402-4591-B0AE-76F721EB95A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCD3EF8-6402-4591-B0AE-76F721EB95A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCD3EF8-6402-4591-B0AE-76F721EB95A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F074DB-B04B-453B-9FBE-52376D994170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F074DB-B04B-453B-9FBE-52376D994170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F074DB-B04B-453B-9FBE-52376D994170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F074DB-B04B-453B-9FBE-52376D994170}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B63B2703-EE3D-4B39-B7E5-2117E51E9297}
+	EndGlobalSection
+EndGlobal

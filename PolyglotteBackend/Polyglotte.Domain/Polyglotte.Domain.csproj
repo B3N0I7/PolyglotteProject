@@ -7,11 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="DomainEvents\" />
-    <Folder Include="Abstractions\" />
+    <Folder Include="DomainServices\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Specifications\" />
+    <Folder Include="Enums\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 

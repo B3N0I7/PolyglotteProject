@@ -7,19 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\Services\" />
-    <Folder Include="Abstractions\Persistence\" />
-    <Folder Include="Common\Behaviors\" />
-    <Folder Include="Common\Mappings\" />
-    <Folder Include="Features\Decks\Commands\" />
-    <Folder Include="Features\Decks\Dtos\" />
-    <Folder Include="Features\Decks\Validators\" />
-    <Folder Include="Features\Decks\Queries\" />
-    <Folder Include="Features\Reviews\Commands\" />
-    <Folder Include="Features\Vocabulary\Commands\" />
-    <Folder Include="Features\Vocabulary\Dtos\" />
-    <Folder Include="Features\Vocabulary\Validators\" />
-    <Folder Include="Features\Vocabulary\Queries\" />
+    <ProjectReference Include="..\Polyglotte.Domain\Polyglotte.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
   </ItemGroup>
 
 </Project>
