@@ -1,97 +1,141 @@
-# Instructions pour GitHub Copilot / Guidelines de contribution
+# Instructions pour GitHub Copilot et lignes directrices de contribution
 
-# Instructions Copilot
+Dernière mise à jour: 2025-10-27  
+Mainteneur / contact: @B3N0I7
 
-**Avant tout développement ou génération de code, lisez systématiquement tous les fichiers d'instructions dans « .github/instructions/ ».** Ceci est obligatoire pour garantir que toutes les règles du projet sont chargées et appliquées correctement.
+## But
 
-Langue: Français
+Ce fichier décrit les règles et bonnes pratiques à suivre pour les contributions automatisées et humaines dans ce dépôt monorepo (backend .NET + frontend React/TypeScript). Il s'adresse aux développeurs, aux outils d'aide à la PR (Copilot, bots) et aux reviewers.
 
-Merci de contribuer au dépôt Polyglotte. Ce fichier donne des consignes précises destinées à GitHub Copilot (et utiles aux développeurs humains) pour générer des suggestions pertinentes et respecter les conventions du projet.
+## Table des matières
 
-## Contexte du projet
-- Monorepo avec deux parties principales:
-  - `PolyglotteBackend/` : backend en C# (.NET) - solution `Polyglotte.sln`, API dans `Polyglotte.API`.
-  - `PolyglotteFrontend/` : frontend React + TypeScript avec Vite.
+- Scope et portée
+- Commandes utiles (PowerShell)
+- Principes généraux par techno
+  - Backend — C# / .NET
+  - Frontend — TypeScript / React / Vite
+- Tests et qualité
+- Sécurité et gestion des secrets
+- Conventions de commit
+- PR / revue et CI
+- Ressources et fichiers liés
 
-## Objectifs généraux
-- Générer du code lisible, testé et maintenable.
-- Respecter le style idiomatique de chaque techno (C# pour le backend, TypeScript/React pour le frontend).
-- Ne pas exposer ou modifier de secrets/credentials.
+## Scope et portée
+
+S'applique à tous les changements dans le dépôt `PolyglotteProject`. Les contributions automatisées (suggestions Copilot, bots) doivent respecter ces règles. Pour des règles détaillées par module, consultez `.github/instructions/`.
 
 ## Commandes utiles (PowerShell)
+
+Exécutez ces commandes localement avant d'ouvrir une PR.
+
 - Construire la solution backend :
+
+```powershell
+dotnet build "PolyglotteBackend\PolyglotteBackend.sln"
 ```
-dotnet build "PolyglotteBackend\Polyglotte.sln"
-```
-- Lancer l'API :
-```
+
+- Lancer l'API (développement) :
+
+```powershell
 dotnet run --project "PolyglotteBackend\Polyglotte.API\Polyglotte.API.csproj"
 ```
-- Frontend (à la racine de `PolyglotteFrontend`):
-```
-npm install
-npm run dev
-```
-- Exécuter les tests .NET (si présents) :
-```
+
+- Exécuter les tests .NET :
+
+```powershell
 dotnet test
 ```
 
-## Règles et préférences (par techno)
+- Frontend (à la racine de `PolyglotteFrontend`) :
 
-### Backend — C# / .NET
-- Préférer des méthodes asynchrones `async/await` pour I/O et appels DB.
-- Utiliser l'injection de dépendances et abstractions dans `Abstractions/Services`.
-- Respecter la séparation domaine/application/infrastructure :
-  - Domaine (entités, value objects, exceptions) dans `Polyglotte.Domain/`
-  - Cas d'utilisation / handlers dans `Polyglotte.Application/Features`
-  - Persistance/implémentations dans `Polyglotte.Infrastructure/`
-- Préserver les fichiers de configuration commités (p.ex. `appsettings.json`). Ne pas proposer de modifications qui ajoutent des secrets en clair.
-- Lorsqu'on modifie des signatures publiques (API), générer aussi des migrations/contrats et mettre à jour la doc si nécessaire.
+```powershell
+npm install
+npm run dev
+```
 
-### Frontend — TypeScript / React / Vite
-- Utiliser TypeScript strict quand possible et typer les composants/props.
-- Préférer des composants fonctionnels avec hooks.
-- Gérer les variables d'environnement via `.env` et ne pas proposer d'insertions de secrets.
+## Backend — C# / .NET (règles)
 
-## Tests unitaireset qualité
-- Lors de suggestions de code, générer aussi un test unitaire minimal (si pertinent) :
-  - Pour C# : xUnit et Moq et System.Text.Assertions et System.Text.Json si besoin.
-  - Pour TS : Vitest et React Testing Library.
-- Fournir des tests pour le happy-path et au moins un cas d'erreur/limite.
+- Préférer méthodes asynchrones (`async`/`await`) pour I/O et appels DB.
+- Utiliser l'injection de dépendances du conteneur .NET (constructor injection).
+- Respecter la séparation Domain / Application / Infrastructure / Presentation :
+  - `Polyglotte.Domain/` : entités, value objects, exceptions.
+  - `Polyglotte.Application/` : cas d'utilisation, DTOs, interfaces de services.
+  - `Polyglotte.Infrastructure/` : implémentations de persistance (Mongo), migrations, context.
+  - `Polyglotte.API/` : contrôleurs, wiring, configuration.
+- Tests unitaires : xUnit + Moq. Pour la sérialisation ou assertions spécifiques, utiliser `System.Text.Json` et outils d'assertion .NET standards.
+- Formattage : `dotnet format` recommandé avant commit.
+
+## Frontend — TypeScript / React / Vite (règles)
+
+- TypeScript strict ; typer composants et props.
+- Composants fonctionnels et Hooks.
+- Variables d'environnement via `.env` (ne pas committer secrets).
+- Tests : Vitest + React Testing Library pour composants UI.
+- Linter / Formatter : ESLint + Prettier. Présentation : respecter `tsconfig.*.json` présents.
+
+## Tests et qualité
+
+- Exiger que toute PR passe localement les étapes : Build → Lint → Tests.
+- Quality gates minimal :
+  - Build: `dotnet build` pour backend, `npm run build` pour frontend si applicable.
+  - Lint / Format: `dotnet format` et `npm run lint`.
+  - Tests unitaires : `dotnet test`, `npm test` ou `npm run test`.
+- Ajouter au moins :
+  - Un test happy-path.
+  - Un test d'erreur/limite pertinent.
+- Place des tests :
+  - Backend : dans le projet de test correspondant (créer `*.Tests` si nécessaire).
+  - Frontend : `src/__tests__` ou à côté des composants.
 
 ## Sécurité et secrets
-- Ne jamais ajouter de clés, mots de passe, tokens ou certificats en clair dans le code.
-- Proposer l'usage de variables d'environnement ou du Key Vault (si mentionné).
+
+- Ne jamais ajouter de clés, mots de passe, tokens ou certificats en clair.
+- Utiliser variables d'environnement ou secret store (Azure Key Vault, GitHub Secrets).
+- Si une nouvelle configuration sécurisée est nécessaire, documenter la procédure d'accès dans `documentation/` (sans exposer les secrets).
+- Avant tout commit, vérifier `git diff` pour éviter inclusion accidentelle.
 
 ## Conventions de commit
-- Structure des messages de commit :
--   Type d'action (feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert)
--   Portée optionnelle entre parenthèses (module, feature)
--   Deux-points et description concise (impératif, 50 caractères max)
-- `!` pour les commits de breaking change.
-- Exemples : 
-  - `feat(auth): ajouter la gestion OAuth2`
-  - `fix(deck): corriger le bug de création de deck`
-  - `refactor(user): simplifier la logique de validation`
 
-## Bonnes pratiques pour les suggestions Copilot
+Format recommandé :
+
+- type(scope): description
+- type ∈ {feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert}
+- Exemple : `feat(auth): ajouter la gestion OAuth2`
+- Exemple : `fix(deck): corriger le bug de création de deck`
+- Utiliser `!` pour breaking change : `refactor(api)!: changement breaking...`
+
+## PR / revue et CI
+
+- PR doit contenir :
+  - Titre clair, description courte, ticket associé (si existant).
+  - Checklist : Build, Lint, Tests (statuts CI green).
+  - Liste des fichiers modifiés et justification si changement d'API publique.
+- Etiquettes et reviewers : suivre la politique du repo (assigner au mainteneur si incertain).
+- Pour modifications d'API publique, documenter le contrat et notifier consommateurs.
+
+## Outils recommandés
+
+- Backend : dotnet 7/8 (selon CI), dotnet format, xUnit, Moq.
+- Frontend : Node 18+, npm, ESLint, Prettier, Vitest, React Testing Library.
+- CI : vérifier pipeline pour l'exécution de `dotnet build`, `dotnet test`, `npm install`, `npm test`.
+
+## Bonnes pratiques pour Copilot / suggestions automatiques
+
 - Do :
-  - Expliquer brièvement le but du snippet proposé.
-  - Fournir une alternative concise si la première solution a des limites.
-  - Inclure des tests quand c'est simple et pertinent.
-
+  - Fournir un bref but du snippet proposé.
+  - Inclure tests unitaires minimal quand c'est pertinent.
+  - Préférer solutions simples et idiomatiques.
 - Don't :
-  - Ne pas modifier `appsettings*.json` pour ajouter des secrets.
-  - Ne pas supprimer ou ignorer des fichiers projet importants sans justification.
+  - Ne pas ajouter de secrets en clair.
+  - Ne pas modifier `appsettings*.json` pour y insérer des credentials.
+  - Ne pas supprimer des fichiers projet sans justification.
+- Si incertitude fonctionnelle : créer une issue ou demander un reviewer humain.
 
-## Où créer les modifications
-- Backend : créer les classes/handlers dans `Polyglotte.Application/Features` ou `Polyglotte.Infrastructure/` selon la responsabilité.
-- Domaine : extensions dans `Polyglotte.Domain/` (ValueObjects, Entities).
-- Frontend : composants dans `PolyglotteFrontend/src/features` ou `shared` si réutilisable.
+## Autres fichiers d'instructions
 
-## Exemple succinct de demande pour Copilot
-"Ajoute un handler MediatR C# pour créer un Deck dans `Polyglotte.Application`, avec validation, mapping vers l'entité domaine et un test xUnit minimal." — Attendu : handler, DTO, mapping et test.
+Consultez le répertoire `.github/instructions/` pour règles additionnelles (ex : `clean-architecture-instructions.md`, `instruction-relative-aux-questions-de-suivi.md`)
 
----
-Si vous voulez que j'ajuste le ton (plus strict sur le style) ou que j'ajoute des commandes CI spécifiques (GitHub Actions) dans `.github/workflows`, dites-le et je générerai le fichier correspondant.
+## Notes finales
+
+- Ces règles sont vivantes — mettez à jour la section "Dernière mise à jour" quand vous changez ce fichier.
+- Si vous voulez que j'applique ces changements dans le dépôt, dites-le et je fournis un patch/commit recommandé.
