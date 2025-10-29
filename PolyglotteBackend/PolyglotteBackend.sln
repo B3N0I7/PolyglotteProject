@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11111.16 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.API", "Polyglotte.API\Polyglotte.API.csproj", "{CE7D618C-D029-429E-A204-B3B1528D06DC}"
 EndProject
@@ -15,6 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA
 	ProjectSection(SolutionItems) = preProject
 		copilot-instructions.md = copilot-instructions.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Application.Tests", "Polyglotte.Application.Tests\Polyglotte.Application.Tests.csproj", "{9814040A-9960-4BAA-84E0-16542F4ECF58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Domain.Tests", "Polyglotte.Domain.Tests\Polyglotte.Domain.Tests.csproj", "{FF9AFC50-A733-4E7B-80CA-AAE84289118B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.API.Tests", "Polyglotte.API.Tests\Polyglotte.API.Tests.csproj", "{CF2EB6AB-06C8-4BFE-8431-B30A1298460A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polyglotte.Infrastructure.Tests", "Polyglotte.Infrastructure.Tests\Polyglotte.Infrastructure.Tests.csproj", "{1A38FD90-68B9-4C56-B9E7-F5E7AC178B27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +46,22 @@ Global
 		{64F074DB-B04B-453B-9FBE-52376D994170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64F074DB-B04B-453B-9FBE-52376D994170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64F074DB-B04B-453B-9FBE-52376D994170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9814040A-9960-4BAA-84E0-16542F4ECF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9814040A-9960-4BAA-84E0-16542F4ECF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9814040A-9960-4BAA-84E0-16542F4ECF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9814040A-9960-4BAA-84E0-16542F4ECF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF9AFC50-A733-4E7B-80CA-AAE84289118B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9AFC50-A733-4E7B-80CA-AAE84289118B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9AFC50-A733-4E7B-80CA-AAE84289118B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9AFC50-A733-4E7B-80CA-AAE84289118B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2EB6AB-06C8-4BFE-8431-B30A1298460A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2EB6AB-06C8-4BFE-8431-B30A1298460A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2EB6AB-06C8-4BFE-8431-B30A1298460A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2EB6AB-06C8-4BFE-8431-B30A1298460A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A38FD90-68B9-4C56-B9E7-F5E7AC178B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A38FD90-68B9-4C56-B9E7-F5E7AC178B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A38FD90-68B9-4C56-B9E7-F5E7AC178B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A38FD90-68B9-4C56-B9E7-F5E7AC178B27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
