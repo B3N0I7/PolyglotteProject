@@ -1,6 +1,32 @@
 @Polyglotte.API_HostAddress = http://localhost:5236
+#@id = 6904dbd0ad5ca3830ab110ed
+@id = 6904dc6dad5ca3830ab110ee
 
-GET {{Polyglotte.API_HostAddress}}/weatherforecast/
+GET {{Polyglotte.API_HostAddress}}/api/Words/
+Accept: application/json
+
+###
+POST {{Polyglotte.API_HostAddress}}/api/Words/
+Content-Type: application/json
+{
+  "englishWord": "chaine",
+  "frenchWord": "chaine"
+}
+
+###
+GET {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
+Accept: application/json
+
+###
+PUT {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
+Content-Type: application/json
+{
+  "englishWord": "string",
+  "frenchWord": "chaine"
+}
+
+###
+DELETE {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
 Accept: application/json
 
 ###
