@@ -1,10 +1,37 @@
 @Polyglotte.API_HostAddress = http://localhost:5236
-#@id = 6904dbd0ad5ca3830ab110ed
-@id = 6904dc6dad5ca3830ab110ee
+#@userId = 6905ed67eb0f3ab8d035e046
+@userId = 6905ffdd1e2ec59f2c7f8f3d
+#@wordId = 6904dbd0ad5ca3830ab110ed
+@wordId = 6904dc6dad5ca3830ab110ee
 
+# Users Controller
+GET {{Polyglotte.API_HostAddress}}/api/Users/
+Accept: application/json
+###
+POST {{Polyglotte.API_HostAddress}}/api/Users/
+Content-Type: application/json
+{
+  "username": "newuser",
+  "email": "newuser@email.fr"
+}
+###
+GET {{Polyglotte.API_HostAddress}}/api/Users/{{userId}}
+Accept: application/json
+###
+PUT {{Polyglotte.API_HostAddress}}/api/Users/{{userId}}
+Content-Type: application/json
+{
+  "username": "updateduser",
+  "email": "updateduser@email.fr"
+}
+###
+DELETE {{Polyglotte.API_HostAddress}}/api/Users/{{userId}}
+Accept: application/json
+###
+
+# Words Controller
 GET {{Polyglotte.API_HostAddress}}/api/Words/
 Accept: application/json
-
 ###
 POST {{Polyglotte.API_HostAddress}}/api/Words/
 Content-Type: application/json
@@ -12,21 +39,17 @@ Content-Type: application/json
   "englishWord": "chaine",
   "frenchWord": "chaine"
 }
-
 ###
-GET {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
+GET {{Polyglotte.API_HostAddress}}/api/Words/{{wordId}}
 Accept: application/json
-
 ###
-PUT {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
+PUT {{Polyglotte.API_HostAddress}}/api/Words/{{wordId}}
 Content-Type: application/json
 {
   "englishWord": "string",
   "frenchWord": "chaine"
 }
-
 ###
-DELETE {{Polyglotte.API_HostAddress}}/api/Words/{{id}}
+DELETE {{Polyglotte.API_HostAddress}}/api/Words/{{wordId}}
 Accept: application/json
-
 ###
