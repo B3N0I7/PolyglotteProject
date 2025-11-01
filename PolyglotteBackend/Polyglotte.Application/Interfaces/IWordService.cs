@@ -1,4 +1,4 @@
-using Polyglotte.Application.DTOs;
+using Polyglotte.Application.DTOs.Word;
 
 namespace Polyglotte.Application.Interfaces
 {

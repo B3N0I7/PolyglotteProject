@@ -1,4 +1,3 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Polyglotte.Domain.Entities;
 using Polyglotte.Domain.Interfaces;

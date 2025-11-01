@@ -1,4 +1,4 @@
-using Polyglotte.Application.DTOs;
+using Polyglotte.Application.DTOs.Word;
 using Polyglotte.Domain.Entities;
 
 namespace Polyglotte.Application.Mappings

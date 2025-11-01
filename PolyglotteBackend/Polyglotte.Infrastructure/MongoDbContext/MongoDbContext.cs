@@ -16,5 +16,6 @@ namespace Polyglotte.Infrastructure.MongoDbContext
         }
 
         public IMongoCollection<WordDocument> Words => _database.GetCollection<WordDocument>(_settings.WordsCollectionName);
+        public IMongoCollection<UserDocument> Users => _database.GetCollection<UserDocument>(_settings.UsersCollectionName);
     }
 }

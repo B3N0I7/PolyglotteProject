@@ -1,6 +1,4 @@
-using System;
-
-namespace Polyglotte.Application.DTOs
+namespace Polyglotte.Application.DTOs.Word
 {
     public class WordResponse
     {

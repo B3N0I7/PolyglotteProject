@@ -1,7 +1,6 @@
-using Polyglotte.Application.DTOs;
+using Polyglotte.Application.DTOs.Word;
 using Polyglotte.Application.Interfaces;
 using Polyglotte.Application.Mappings;
-using Polyglotte.Domain.Entities;
 using Polyglotte.Domain.Interfaces;
 
 namespace Polyglotte.Application.Services

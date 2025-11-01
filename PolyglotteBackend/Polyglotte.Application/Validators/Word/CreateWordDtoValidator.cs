@@ -1,7 +1,7 @@
 using FluentValidation;
-using Polyglotte.Application.DTOs;
+using Polyglotte.Application.DTOs.Word;
 
-namespace Polyglotte.Application.Validators
+namespace Polyglotte.Application.Validators.Word
 {
     public class CreateWordDtoValidator : AbstractValidator<CreateWordDto>
     {

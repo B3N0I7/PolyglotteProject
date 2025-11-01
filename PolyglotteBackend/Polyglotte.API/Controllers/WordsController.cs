@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
 using FluentValidation.Results;
-using Polyglotte.Application.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Polyglotte.Application.DTOs.Word;
 using Polyglotte.Application.Interfaces;
 
 namespace Polyglotte.API.Controllers
