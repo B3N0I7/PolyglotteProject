@@ -9,6 +9,7 @@ namespace Polyglotte.Application.Mappings
         {
             return new Word
             {
+                UserId = dto.UserId,
                 EnglishWord = dto.EnglishWord,
                 FrenchWord = dto.FrenchWord,
                 CreatedAt = DateTime.UtcNow
@@ -26,6 +27,7 @@ namespace Polyglotte.Application.Mappings
             return new WordResponse
             {
                 Id = entity.Id,
+                UserId = entity.UserId,
                 EnglishWord = entity.EnglishWord,
                 FrenchWord = entity.FrenchWord,
                 CreatedAt = entity.CreatedAt

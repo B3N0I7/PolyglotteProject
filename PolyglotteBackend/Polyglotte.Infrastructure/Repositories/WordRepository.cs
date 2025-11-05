@@ -14,7 +14,7 @@ namespace Polyglotte.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Word> CreateAsync(Word word, CancellationToken cancellationToken = default)
+        public async Task<Word> CreateWordAsync(Word word, CancellationToken cancellationToken = default)
         {
             var doc = ToDocument(word);
             await _context.Words.InsertOneAsync(doc, cancellationToken: cancellationToken);
@@ -55,6 +55,7 @@ namespace Polyglotte.Infrastructure.Repositories
         {
             var doc = new WordDocument
             {
+                UserId = w.UserId,
                 EnglishWord = w.EnglishWord,
                 FrenchWord = w.FrenchWord,
                 CreatedAt = w.CreatedAt
@@ -72,6 +73,7 @@ namespace Polyglotte.Infrastructure.Repositories
         private static Word ToDomain(WordDocument d) => new Word
         {
             Id = d.Id,
+            UserId = d.UserId,
             EnglishWord = d.EnglishWord,
             FrenchWord = d.FrenchWord,
             CreatedAt = d.CreatedAt

@@ -45,7 +45,7 @@ namespace Polyglotte.API.Controllers
             ValidationResult validation = await _createValidator.ValidateAsync(dto, cancellationToken);
             if (!validation.IsValid) return BadRequest(validation.ToDictionary());
 
-            var created = await _service.CreateAsync(dto, cancellationToken);
+            var created = await _service.CreateWordAsync(dto, cancellationToken);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 

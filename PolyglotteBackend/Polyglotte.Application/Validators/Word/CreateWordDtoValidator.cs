@@ -7,13 +7,15 @@ namespace Polyglotte.Application.Validators.Word
     {
         public CreateWordDtoValidator()
         {
+            RuleFor(x => x.UserId)
+                .NotEmpty();
             RuleFor(x => x.EnglishWord)
                 .NotEmpty()
-                .MaximumLength(200);
+                .MaximumLength(50);
 
             RuleFor(x => x.FrenchWord)
                 .NotEmpty()
-                .MaximumLength(200);
+                .MaximumLength(50);
         }
     }
 }

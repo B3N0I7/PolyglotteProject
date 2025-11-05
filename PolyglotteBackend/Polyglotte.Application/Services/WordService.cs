@@ -14,10 +14,10 @@ namespace Polyglotte.Application.Services
             _repository = repository;
         }
 
-        public async Task<WordResponse> CreateAsync(CreateWordDto dto, CancellationToken cancellationToken = default)
+        public async Task<WordResponse> CreateWordAsync(CreateWordDto dto, CancellationToken cancellationToken = default)
         {
             var word = WordMapper.ToEntity(dto);
-            var created = await _repository.CreateAsync(word, cancellationToken);
+            var created = await _repository.CreateWordAsync(word, cancellationToken);
             return WordMapper.ToResponse(created);
         }
 

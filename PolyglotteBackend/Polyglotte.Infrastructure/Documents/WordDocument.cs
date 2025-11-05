@@ -8,6 +8,9 @@ namespace Polyglotte.Infrastructure.Documents
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = string.Empty;
+        
+        [BsonElement("userId")]
+        public string UserId { get; set; } = string.Empty;
 
         [BsonElement("english")]
         public string EnglishWord { get; set; } = string.Empty;
