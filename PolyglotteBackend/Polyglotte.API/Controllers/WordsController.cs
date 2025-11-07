@@ -55,7 +55,7 @@ namespace Polyglotte.API.Controllers
             ValidationResult validation = await _updateValidator.ValidateAsync(dto, cancellationToken);
             if (!validation.IsValid) return BadRequest(validation.ToDictionary());
 
-            var success = await _service.UpdateAsync(id, dto, cancellationToken);
+            var success = await _service.UpdateWordAsync(id, dto, cancellationToken);
             if (!success) return NotFound();
             return NoContent();
         }

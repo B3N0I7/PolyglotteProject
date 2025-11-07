@@ -41,7 +41,7 @@ namespace Polyglotte.Infrastructure.Repositories
             return doc is null ? null : ToDomain(doc);
         }
 
-        public async Task<bool> UpdateAsync(Word word, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateWordAsync(Word word, CancellationToken cancellationToken = default)
         {
             var update = Builders<WordDocument>.Update
                 .Set(d => d.EnglishWord, word.EnglishWord)

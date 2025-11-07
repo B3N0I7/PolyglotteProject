@@ -38,14 +38,14 @@ namespace Polyglotte.Application.Services
             return word is null ? null : WordMapper.ToResponse(word);
         }
 
-        public async Task<bool> UpdateAsync(string id, UpdateWordDto dto, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateWordAsync(string id, UpdateWordDto dto, CancellationToken cancellationToken = default)
         {
             var existing = await _repository.GetByIdAsync(id, cancellationToken);
             if (existing is null) return false;
 
             WordMapper.ToEntity(dto, existing);
 
-            return await _repository.UpdateAsync(existing, cancellationToken);
+            return await _repository.UpdateWordAsync(existing, cancellationToken);
         }
     }
 }
