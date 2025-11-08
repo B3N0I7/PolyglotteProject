@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
-    const [activeItem, setActiveItem] = useState('accueil');
+    const navigate = useNavigate();
+    const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const menuItems = [
-        { id: 'accueil', label: 'Accueil', icon: '🏠' },
-        { id: 'apprendre', label: 'Apprendre', icon: '📚' },
-        { id: 'mots', label: 'Mes Mots', icon: '📝' },
-        { id: 'progression', label: 'Progression', icon: '📈' },
-        { id: 'communaute', label: 'Communauté', icon: '👥' },
+        { id: 'accueil', label: 'Accueil', icon: '🏠', path: '/' },
+        { id: 'apprendre', label: 'Apprendre', icon: '📚', path: '/apprendre' },
+        { id: 'mots', label: 'Mes Mots', icon: '📝', path: '/mots' },
+        { id: 'progression', label: 'Progression', icon: '📈', path: '/progression' },
+        { id: 'communaute', label: 'Communauté', icon: '👥', path: '/communaute' },
     ];
 
-    const handleItemClick = (itemId: string) => {
-        setActiveItem(itemId);
+    const getActiveItem = () => {
+        const currentItem = menuItems.find(item => item.path === location.pathname);
+        return currentItem ? currentItem.id : 'accueil';
+    };
+
+    const handleItemClick = (item: typeof menuItems[0]) => {
+        navigate(item.path);
         setIsMobileMenuOpen(false);
     };
 
@@ -35,8 +42,8 @@ const Navbar: React.FC = () => {
                     {menuItems.map((item) => (
                         <li key={item.id} className="navbar-item">
                             <button
-                                className={`navbar-link ${activeItem === item.id ? 'active' : ''}`}
-                                onClick={() => handleItemClick(item.id)}
+                                className={`navbar-link ${getActiveItem() === item.id ? 'active' : ''}`}
+                                onClick={() => handleItemClick(item)}
                             >
                                 <span className="navbar-icon">{item.icon}</span>
                                 <span className="navbar-label">{item.label}</span>

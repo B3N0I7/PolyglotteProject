@@ -28,6 +28,13 @@
   line-height: 1.6;
 }
 
+.auth-notice {
+  font-size: 1rem !important;
+  color: #667eea !important;
+  font-weight: 500 !important;
+  margin-bottom: 1rem !important;
+}
+
 .welcome-actions {
   display: flex;
   gap: 1rem;
@@ -46,6 +53,9 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   min-width: 200px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-primary {
@@ -88,4 +98,32 @@
   .btn {
     min-width: 250px;
   }
+}
+
+.navigation-demo {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.navigation-demo h3 {
+  color: #4a5568;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.navigation-demo button {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 1px solid #cbd5e0;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navigation-demo button:hover {
+  background: #edf2f7;
+  color: #2d3748;
 }

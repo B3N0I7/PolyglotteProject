@@ -55,6 +55,24 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.brand-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand-link:hover {
+    text-decoration: none;
+}
+
+.user-welcome {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
 }
 
 .header-btn.primary {
