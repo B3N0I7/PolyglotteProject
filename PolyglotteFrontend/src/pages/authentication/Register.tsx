@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MainLayout } from '../../layouts';
 import { useAuth } from '../../app/providers';
 import type { RegisterRequest } from '../../types';
+import { validateEmail, validatePassword, validateName, handleApiError } from '../../utils/validation';
 import './Auth.css';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
     const { register } = useAuth();
     const [formData, setFormData] = useState<RegisterRequest & { confirmPassword: string; acceptTerms: boolean }>({
-        firstName: '',
-        lastName: '',
+        userName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -39,38 +39,33 @@ const Register: React.FC = () => {
     const validateForm = (): boolean => {
         const newErrors: { [key: string]: string } = {};
 
-        if (!formData.firstName.trim()) {
-            newErrors.firstName = 'Le prénom est requis';
-        } else if (formData.firstName.trim().length < 2) {
-            newErrors.firstName = 'Le prénom doit contenir au moins 2 caractères';
+        // Validation userName
+        const userNameValidation = validateName(formData.userName, 'nom d\'utilisateur');
+        if (!userNameValidation.isValid) {
+            newErrors.userName = userNameValidation.message!;
         }
 
-        if (!formData.lastName.trim()) {
-            newErrors.lastName = 'Le nom est requis';
-        } else if (formData.lastName.trim().length < 2) {
-            newErrors.lastName = 'Le nom doit contenir au moins 2 caractères';
-        }
-
+        // Validation email
         if (!formData.email.trim()) {
             newErrors.email = 'L\'email est requis';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        } else if (!validateEmail(formData.email)) {
             newErrors.email = 'L\'email n\'est pas valide';
         }
 
-        if (!formData.password.trim()) {
-            newErrors.password = 'Le mot de passe est requis';
-        } else if (formData.password.length < 8) {
-            newErrors.password = 'Le mot de passe doit contenir au moins 8 caractères';
-        } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-            newErrors.password = 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre';
+        // Validation mot de passe
+        const passwordValidation = validatePassword(formData.password);
+        if (!passwordValidation.isValid) {
+            newErrors.password = passwordValidation.message!;
         }
 
+        // Validation confirmation mot de passe
         if (!formData.confirmPassword.trim()) {
             newErrors.confirmPassword = 'La confirmation du mot de passe est requise';
         } else if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = 'Les mots de passe ne correspondent pas';
         }
 
+        // Validation acceptation des conditions
         if (!formData.acceptTerms) {
             newErrors.acceptTerms = 'Vous devez accepter les conditions d\'utilisation';
         }
@@ -87,12 +82,12 @@ const Register: React.FC = () => {
         setIsLoading(true);
 
         try {
-            await register(formData.firstName, formData.lastName, formData.email, formData.password);
-            navigate('/');
+            await register(formData.userName, formData.email, formData.password);
+            navigate('/', { replace: true });
         } catch (error) {
             console.error('Erreur lors de l\'inscription:', error);
             setErrors({
-                general: error instanceof Error ? error.message : 'Erreur lors de l\'inscription. Veuillez réessayer.'
+                general: handleApiError(error, 'Erreur lors de l\'inscription. Veuillez réessayer.')
             });
         } finally {
             setIsLoading(false);
@@ -105,7 +100,6 @@ const Register: React.FC = () => {
                 <div className="auth-card register-card">
                     <div className="auth-header">
                         <h1>Créer un compte</h1>
-                        <p>Rejoignez la communauté Polyglotte et commencez votre apprentissage</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="auth-form">
@@ -117,33 +111,19 @@ const Register: React.FC = () => {
 
                         <div className="form-row">
                             <div className="form-group half-width">
-                                <label htmlFor="firstName">Prénom</label>
+                                <label htmlFor="userName">Nom d'utilisateur</label>
                                 <input
                                     type="text"
-                                    id="firstName"
-                                    name="firstName"
-                                    value={formData.firstName}
+                                    id="userName"
+                                    name="userName"
+                                    value={formData.userName}
                                     onChange={handleChange}
-                                    className={errors.firstName ? 'error' : ''}
+                                    className={errors.userName ? 'error' : ''}
                                     placeholder="Jean"
                                     autoComplete="given-name"
+                                    disabled={isLoading}
                                 />
-                                {errors.firstName && <span className="error-message">{errors.firstName}</span>}
-                            </div>
-
-                            <div className="form-group half-width">
-                                <label htmlFor="lastName">Nom</label>
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    name="lastName"
-                                    value={formData.lastName}
-                                    onChange={handleChange}
-                                    className={errors.lastName ? 'error' : ''}
-                                    placeholder="Dupont"
-                                    autoComplete="family-name"
-                                />
-                                {errors.lastName && <span className="error-message">{errors.lastName}</span>}
+                                {errors.userName && <span className="error-message">{errors.userName}</span>}
                             </div>
                         </div>
 
@@ -158,6 +138,7 @@ const Register: React.FC = () => {
                                 className={errors.email ? 'error' : ''}
                                 placeholder="jean.dupont@email.com"
                                 autoComplete="email"
+                                disabled={isLoading}
                             />
                             {errors.email && <span className="error-message">{errors.email}</span>}
                         </div>
@@ -173,6 +154,7 @@ const Register: React.FC = () => {
                                 className={errors.password ? 'error' : ''}
                                 placeholder="••••••••"
                                 autoComplete="new-password"
+                                disabled={isLoading}
                             />
                             {errors.password && <span className="error-message">{errors.password}</span>}
                             <small className="password-hint">
@@ -191,6 +173,7 @@ const Register: React.FC = () => {
                                 className={errors.confirmPassword ? 'error' : ''}
                                 placeholder="••••••••"
                                 autoComplete="new-password"
+                                disabled={isLoading}
                             />
                             {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
                         </div>
@@ -202,6 +185,7 @@ const Register: React.FC = () => {
                                     name="acceptTerms"
                                     checked={formData.acceptTerms}
                                     onChange={handleChange}
+                                    disabled={isLoading}
                                 />
                                 <span className="checkmark"></span>
                                 J'accepte les <a href="#" className="terms-link">conditions d'utilisation</a> et la <a href="#" className="terms-link">politique de confidentialité</a>

@@ -31,6 +31,9 @@ public class UserService : IUserService
         if (string.IsNullOrWhiteSpace(createUserDto.Email))
             throw new ArgumentException("Email cannot be null or empty", nameof(createUserDto.Email));
 
+        if (string.IsNullOrWhiteSpace(createUserDto.Password))
+            throw new ArgumentException("Password cannot be null or empty", nameof(createUserDto.Password));
+
         // Vérification d'unicité
         if (await _userRepository.UsernameExistsAsync(createUserDto.Username))
             throw new InvalidOperationException($"Username '{createUserDto.Username}' already exists");

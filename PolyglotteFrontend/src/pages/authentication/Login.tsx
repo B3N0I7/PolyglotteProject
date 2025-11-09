@@ -1,13 +1,18 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { MainLayout } from '../../layouts';
 import { useAuth } from '../../app/providers';
 import type { LoginRequest } from '../../types';
+import { validateEmail, handleApiError } from '../../utils/validation';
 import './Auth.css';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { login } = useAuth();
+
+    // Récupérer la page d'origine depuis la navigation
+    const from = location.state?.from?.pathname || '/';
     const [formData, setFormData] = useState<LoginRequest>({
         email: '',
         password: ''
@@ -37,7 +42,7 @@ const Login: React.FC = () => {
 
         if (!formData.email.trim()) {
             newErrors.email = 'L\'email est requis';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        } else if (!validateEmail(formData.email)) {
             newErrors.email = 'L\'email n\'est pas valide';
         }
 
@@ -60,11 +65,12 @@ const Login: React.FC = () => {
 
         try {
             await login(formData.email, formData.password);
-            navigate('/');
+            // Redirection vers la page d'origine ou accueil
+            navigate(from, { replace: true });
         } catch (error) {
             console.error('Erreur lors de la connexion:', error);
             setErrors({
-                general: error instanceof Error ? error.message : 'Erreur lors de la connexion. Veuillez réessayer.'
+                general: handleApiError(error, 'Erreur lors de la connexion. Veuillez réessayer.')
             });
         } finally {
             setIsLoading(false);
@@ -98,6 +104,7 @@ const Login: React.FC = () => {
                                 className={errors.email ? 'error' : ''}
                                 placeholder="votre@email.com"
                                 autoComplete="email"
+                                disabled={isLoading}
                             />
                             {errors.email && <span className="error-message">{errors.email}</span>}
                         </div>
@@ -113,13 +120,14 @@ const Login: React.FC = () => {
                                 className={errors.password ? 'error' : ''}
                                 placeholder="••••••••"
                                 autoComplete="current-password"
+                                disabled={isLoading}
                             />
                             {errors.password && <span className="error-message">{errors.password}</span>}
                         </div>
 
                         <div className="form-options">
                             <label className="checkbox-label">
-                                <input type="checkbox" />
+                                <input type="checkbox" disabled={isLoading} />
                                 <span className="checkmark"></span>
                                 Se souvenir de moi
                             </label>

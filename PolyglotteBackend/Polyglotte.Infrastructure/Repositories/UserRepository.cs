@@ -185,6 +185,7 @@ namespace Polyglotte.Infrastructure.Repositories
                 Id = document.Id.ToString(),
                 Username = document.Username ?? string.Empty,
                 Email = document.Email ?? string.Empty,
+                Password = document.Password ?? string.Empty,
                 CreatedAt = document.CreatedAt
             };
         }
@@ -195,6 +196,7 @@ namespace Polyglotte.Infrastructure.Repositories
             {
                 Username = entity.Username,
                 Email = entity.Email,
+                Password = entity.Password,
                 CreatedAt = entity.CreatedAt
             };
         }

@@ -16,6 +16,21 @@ namespace Polyglotte.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // CORS configuration for development
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DevelopmentCors", policy =>
+                {
+                    policy
+                        .WithOrigins(
+                            "http://localhost:5173"
+                        )
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddFluentValidationAutoValidation();
@@ -47,6 +62,7 @@ namespace Polyglotte.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors("DevelopmentCors");
             }
 
             app.UseHttpsRedirection();

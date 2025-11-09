@@ -10,7 +10,8 @@ namespace Polyglotte.Application.Mappings
             return new User
             {
                 Username = dto.Username,
-                Email = dto.Email
+                Email = dto.Email,
+                Password = dto.Password
             };
         }
 
@@ -18,6 +19,7 @@ namespace Polyglotte.Application.Mappings
         {
             user.Username = dto.Username;
             user.Email = dto.Email;
+            user.Password = dto.Password;
         }
 
         public UserResponse ToResponse(User user)
@@ -27,6 +29,7 @@ namespace Polyglotte.Application.Mappings
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
+                Password = user.Password,
                 CreatedAt = user.CreatedAt
             };
         }
