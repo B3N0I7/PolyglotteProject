@@ -8,7 +8,7 @@ export const authService = {
         try {
             // Mapper les données frontend vers le format API backend
             const createUserDto = {
-                username: `${userData.firstName.toLowerCase()}${userData.lastName.toLowerCase()}`,
+                username: userData.userName,
                 email: userData.email,
                 password: userData.password
             };

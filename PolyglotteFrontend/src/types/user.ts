@@ -1,7 +1,7 @@
 // Types pour l'utilisateur (sans mot de passe pour la sécurité côté frontend)
 export interface User {
     id: string;
-    username: string;
+    userName: string;
     email: string;
     createdAt: string;
 }
@@ -9,7 +9,7 @@ export interface User {
 // Type complet utilisateur pour les réponses de l'API (avec mot de passe)
 export interface UserWithPassword {
     id: string;
-    username: string;
+    userName: string;
     email: string;
     password: string;
     createdAt: string;
@@ -17,13 +17,13 @@ export interface UserWithPassword {
 
 // DTOs pour les requêtes API
 export interface CreateUserRequest {
-    username: string;
+    userName: string;
     email: string;
     password: string;
 }
 
 export interface UpdateUserRequest {
-    username?: string;
+    userName?: string;
     email?: string;
     password?: string;
 }
@@ -35,8 +35,7 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-    firstName: string;
-    lastName: string;
+    userName: string;
     email: string;
     password: string;
 }
