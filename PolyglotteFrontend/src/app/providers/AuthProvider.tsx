@@ -1,67 +1,92 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
-import { authService } from '../../services';
-import type { User } from '../../types';
+import React, { useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { authService } from "../../features/authentication/services/authService";
+import type { User } from "../../features/users/types/user";
+import { AuthContext, type AuthContextType } from "./AuthContext";
 
-interface AuthContextType {
-    user: User | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    register: (userName: string, email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-};
-
+/**
+ * Props du provider d'authentification
+ */
 interface AuthProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
+/**
+ * Provider d'authentification global
+ * Gère l'état utilisateur et expose les méthodes d'authentification
+ */
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // Vérifier si un utilisateur est déjà connecté au chargement
-        const currentUser = authService.getCurrentUser();
-        if (currentUser && authService.isAuthenticated()) {
-            setUser(currentUser);
-        }
-        setIsLoading(false);
-    }, []);
-
-    const login = async (email: string, password: string) => {
-        const response = await authService.login({ email, password });
-        setUser(response.user);
+  // Restauration de la session au chargement
+  useEffect(() => {
+    const initAuth = () => {
+      const currentUser = authService.getCurrentUser();
+      if (currentUser && authService.isAuthenticated()) {
+        setUser(currentUser);
+      }
+      setIsLoading(false);
     };
 
-    const register = async (userName: string, email: string, password: string) => {
-        const response = await authService.register({ userName, email, password });
-        setUser(response.user);
-    };
+    initAuth();
+  }, []);
 
-    const logout = async () => {
-        await authService.logout();
-        setUser(null);
-    };
+  /**
+   * Connecte un utilisateur
+   */
+  const login = async (email: string, password: string): Promise<void> => {
+    try {
+      const response = await authService.login({ email, password });
+      setUser(response.user);
+    } catch (error) {
+      console.error("Erreur lors de la connexion:", error);
+      throw error;
+    }
+  };
 
-    const value: AuthContextType = {
-        user,
-        isAuthenticated: !!user,
-        isLoading,
-        login,
-        register,
-        logout,
-    };
+  /**
+   * Inscrit un nouvel utilisateur
+   */
+  const register = async (
+    username: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
+    try {
+      const response = await authService.register({
+        username,
+        email,
+        password,
+      });
+      setUser(response.user);
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+      throw error;
+    }
+  };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  /**
+   * Déconnecte l'utilisateur actuel
+   */
+  const logout = async (): Promise<void> => {
+    try {
+      await authService.logout();
+      setUser(null);
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error);
+      throw error;
+    }
+  };
+
+  const value: AuthContextType = {
+    user,
+    isAuthenticated: !!user,
+    isLoading,
+    login,
+    register,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

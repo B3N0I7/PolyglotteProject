@@ -1,25 +1,26 @@
 .main-layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
-    flex: 1;
-    background: #f7fafc;
-    min-height: calc(100vh - 200px);
-    /* Ajustez selon la hauteur du header/navbar */
+  flex: 1;
+  background: #f7fafc;
+  /* Réduire légèrement la min-height pour laisser moins d'espace vertical avant le footer */
+  min-height: calc(100vh - 250px);
+  /* Ajustez selon la hauteur du header/navbar */
 }
 
 .main-content-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    min-height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100%;
 }
 
 @media (max-width: 768px) {
-    .main-content-container {
-        padding: 1rem;
-    }
+  .main-content-container {
+    padding: 1rem;
+  }
 }

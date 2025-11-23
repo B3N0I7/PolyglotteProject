@@ -1,0 +1,185 @@
+.words-table-container {
+  margin: 1.5rem 0;
+  max-width: 100%;
+}
+
+.words-count {
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.error-message {
+  padding: 2rem;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  color: #c33;
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.empty-state h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.words-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  min-width: 600px;
+}
+
+.words-table th,
+.words-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.words-table tbody tr {
+  height: 45px;
+}
+
+.words-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.words-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.words-table th.sortable:hover {
+  background-color: #e9ecef;
+}
+
+.words-table th.sortable::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #ccc;
+  opacity: 0.5;
+}
+
+.words-table th.sortable.sorted-asc::after {
+  border-bottom: 4px solid #007bff;
+  border-top: none;
+  opacity: 1;
+}
+
+.words-table th.sortable.sorted-desc::after {
+  border-top: 4px solid #007bff;
+  border-bottom: none;
+  opacity: 1;
+}
+
+.words-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.french-word {
+  font-weight: 500;
+  color: #333;
+}
+
+.translation {
+  color: #666;
+}
+
+.language-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: white;
+}
+
+.language-badge.language-english,
+.language-badge.language-anglais {
+  background-color: #007bff;
+}
+
+.created-date {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.actions .btn {
+  margin-right: 6px;
+  min-width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+.btn-secondary {
+  /* Use app secondary style: white with primary accent border */
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  /* Softer danger to fit palette */
+  background-color: #e85661; /* softer red */
+  border-color: #e85661;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #d64550;
+  border-color: #c63b47;
+}
