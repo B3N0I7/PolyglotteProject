@@ -42,7 +42,6 @@ export interface DeleteUserRequest {
 export interface UserApiResponse {
   id: string;
   username?: string;
-  username?: string; // Support des deux formats backend
   email: string;
   password: string;
   createdAt: string;

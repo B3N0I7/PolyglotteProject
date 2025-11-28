@@ -16,20 +16,28 @@ namespace Polyglotte.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // CORS configuration for development
-            builder.Services.AddCors(options =>
+            // CORS configuration
+             var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+            ?? new[] { "http://localhost:5173", "http://localhost:3000", "http://localhost", "https://localhost:8080" };
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("DefaultCors", policy =>
             {
-                options.AddPolicy("DevelopmentCors", policy =>
-                {
-                    policy
-                        .WithOrigins(
-                            "http://localhost:5173"
-                        )
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
+                policy
+                    .WithOrigins(allowedOrigins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                // .AllowCredentials(); // seulement si cookies/authorization avec credentials
             });
+        });
+
+            // Health checks
+            //builder.Services.AddHealthChecks()
+            //    .AddMongoDb(
+            //        mongoSettings => mongoSettings.ConnectionString,
+            //        name: "MongoDB"
+            //    );
 
             // Add services to the container.
             builder.Services.AddControllers();
@@ -57,17 +65,25 @@ namespace Polyglotte.API
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-                app.UseCors("DevelopmentCors");
-            }
+            if (app.Environment.IsProduction())
+                {
+  
+                  app.UseHttpsRedirection();
+                }
+            
+            app.UseRouting();
 
-            app.UseHttpsRedirection();
+            // Apply CORS policy
+            app.UseCors("DefaultCors");
+
+            // Configure the HTTP request pipeline.
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseAuthorization();
+
+            // Map health check endpoint
+            //app.MapHealthChecks("/health");
 
             app.MapControllers();
 

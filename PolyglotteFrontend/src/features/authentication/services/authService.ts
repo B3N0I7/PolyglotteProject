@@ -3,9 +3,9 @@ import type { User, UserApiResponse } from "../../users/types/user";
 import type { AuthResponse } from "../types/auth";
 import type { LoginRequest } from "../login/types/loginRequest";
 import type { RegisterRequest } from "../register/types/registerRequest";
+import { LOCAL_API_BASE_URL } from "../constants/authConstants";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://localhost:7081/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || LOCAL_API_BASE_URL;
 
 /**
  * Service d'authentification centralisé
@@ -68,7 +68,7 @@ export const authService = {
       // Mapper les données backend vers le format frontend
       const user: User = {
         id: userResponse.id,
-        username: userResponse.username || userResponse.username || "", // Support des deux formats
+        username: userResponse.username || "",
         password: userResponse.password,
         email: userResponse.email,
         createdAt: userResponse.createdAt,

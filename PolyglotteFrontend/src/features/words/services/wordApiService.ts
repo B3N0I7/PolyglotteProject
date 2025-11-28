@@ -1,4 +1,5 @@
 import { apiClient, ApiError } from "../../../shared/services/apiClient";
+import { LOCAL_API_BASE_URL } from "../constants/wordsConstants";
 import type { Word, CreateWordRequest, UpdateWordRequest } from "../types/word";
 
 /**
@@ -87,7 +88,7 @@ export const wordApiService = {
       const body: Record<string, unknown> = { ...data, userId };
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || "https://localhost:7081/api"}/words/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL || LOCAL_API_BASE_URL}/words/${id}`,
         {
           method: "PUT",
           headers: {

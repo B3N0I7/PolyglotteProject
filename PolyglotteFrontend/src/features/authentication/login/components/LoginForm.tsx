@@ -94,7 +94,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
         <div className="auth-footer">
           <p>
-            Pas encore de compte?
+            Pas encore de compte ?
             <Link to="/register" className="auth-link">
               Créer un compte
             </Link>

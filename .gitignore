@@ -108,6 +108,15 @@ temp/
 secrets.json
 
 ##############################
+# Docker & Environment
+##############################
+.env
+.env.local
+.env.*.local
+.docker/
+docker-compose.override.yml
+
+##############################
 # Misc
 ##############################
 node-repl.history

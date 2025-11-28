@@ -1,5 +1,6 @@
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://localhost:7081/api";
+import { LOCAL_API_BASE_URL } from "../constants/apiClientConstants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || LOCAL_API_BASE_URL;
 
 export class ApiError extends Error {
   public status: number;

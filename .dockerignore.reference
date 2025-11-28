@@ -1,0 +1,90 @@
+# .dockerignore - Fichiers exclus des images Docker
+# Réduit la taille des images et accélère la construction
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE & Editors
+.vs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node/npm
+node_modules/
+npm-debug.log
+npm-error.log
+yarn.lock
+package-lock.json
+
+# .NET / Visual Studio
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.ntvs*
+*.njsproj
+*.userprefs
+
+# Build & artifacts
+dist/
+build/
+.next/
+.nuxt/
+coverage/
+*.nupkg
+
+# Documentation
+README*.md
+docs/
+documentation/
+
+# Docker
+docker-compose.yml
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+.docker/
+
+# Environment & Secrets
+.env
+.env.*
+secrets.json
+appsettings.*.json
+
+# Tests
+**/*.Tests/
+**/test/
+**/tests/
+**/spec/
+TestResults/
+coverage/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# OS & Temporary
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+*.tmp
+*.bak
+
+# Misc
+LICENSE
+README.md
+CHANGELOG.md
+.editorconfig
+.prettierignore
+.eslintignore

@@ -63,6 +63,22 @@ export const useUpdateWord = () => {
         return;
       }
 
+      // Vérification : aucune modification
+      if (
+        wordToEdit &&
+        formData.frenchWord.trim() === wordToEdit.frenchWord.trim() &&
+        formData.englishWord.trim() === wordToEdit.englishWord.trim()
+      ) {
+        setErrors({
+          general:
+            "Aucune modification détectée. Le mot n'a pas été mis à jour.",
+        });
+        setTimeout(() => {
+          navigate("/words");
+        }, 2500);
+        return;
+      }
+
       const validationErrors = updateWordService.validateWordData(formData);
       if (validationErrors) {
         setErrors(validationErrors);
@@ -92,7 +108,7 @@ export const useUpdateWord = () => {
         setIsLoading(false);
       }
     },
-    [user, id, formData, navigate]
+    [user, id, formData, wordToEdit, navigate]
   );
 
   const handleCancel = useCallback(() => {

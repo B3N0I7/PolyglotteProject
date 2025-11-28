@@ -163,7 +163,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
         <div className="auth-footer">
           <p>
-            Déjà un compte?
+            Déjà un compte ?
             <Link to="/login" className="auth-link">
               Se connecter
             </Link>

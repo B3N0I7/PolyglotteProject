@@ -23,7 +23,7 @@ const Header: React.FC = () => {
           <Link to="/" className="brand-link">
             <h1 className="header-title">Polyglotte</h1>
             <span className="header-subtitle">
-              Elaborer vos propres dictionnaires
+              Elaborez vos propres dictionnaires
             </span>
           </Link>
         </div>
