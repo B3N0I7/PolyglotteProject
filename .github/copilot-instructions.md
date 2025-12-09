@@ -1,6 +1,6 @@
 # Instructions pour GitHub Copilot et lignes directrices de contribution
 
-Dernière mise à jour: 2025-10-27  
+Dernière mise à jour: 2025-12-09  
 Mainteneur / contact: @B3N0I7
 
 ## But
@@ -11,18 +11,19 @@ Ce fichier décrit les règles et bonnes pratiques à suivre pour les contributi
 
 - Scope et portée
 - Commandes utiles (PowerShell)
-- Principes généraux par techno
+- Principes généraux
   - Backend — C# / .NET
   - Frontend — TypeScript / React / Vite
+  - Persistance — MongoDB
 - Tests et qualité
-- Sécurité et gestion des secrets
-- Conventions de commit
-- PR / revue et CI
-- Ressources et fichiers liés
+- Processus de contribution
+- Fichiers d'instructions détaillés
 
 ## Scope et portée
 
 S'applique à tous les changements dans le dépôt `PolyglotteProject`. Les contributions automatisées (suggestions Copilot, bots) doivent respecter ces règles. Pour des règles détaillées par module, consultez `.github/instructions/`.
+
+**Important** : Avant toute modification non triviale, consultez `.github/instructions/instruction-relative-aux-questions-de-suivi.md` pour documenter vos hypothèses et poser les questions nécessaires.
 
 ## Commandes utiles (PowerShell)
 
@@ -53,89 +54,129 @@ npm install
 npm run dev
 ```
 
-## Backend — C# / .NET (règles)
+## Backend — C# / .NET
 
-- Préférer méthodes asynchrones (`async`/`await`) pour I/O et appels DB.
-- Utiliser l'injection de dépendances du conteneur .NET (constructor injection).
-- Respecter la séparation Domain / Application / Infrastructure / Presentation :
-  - `Polyglotte.Domain/` : entités, value objects, exceptions.
-  - `Polyglotte.Application/` : cas d'utilisation, DTOs, interfaces de services.
-  - `Polyglotte.Infrastructure/` : implémentations de persistance (Mongo), migrations, context.
-  - `Polyglotte.API/` : contrôleurs, wiring, configuration.
-- Tests unitaires : xUnit + Moq. Pour la sérialisation ou assertions spécifiques, utiliser `System.Text.Json` et outils d'assertion .NET standards.
-- Formattage : `dotnet format` recommandé avant commit.
+### Architecture Clean Architecture
 
-## Frontend — TypeScript / React / Vite (règles)
+Respectez strictement la séparation des couches :
 
-- TypeScript strict ; typer composants et props.
-- Composants fonctionnels et Hooks.
-- Variables d'environnement via `.env` (ne pas committer secrets).
-- Tests : Vitest + React Testing Library pour composants UI.
-- Linter / Formatter : ESLint + Prettier. Présentation : respecter `tsconfig.*.json` présents.
+- **Domain** : entités, value objects, exceptions, interfaces de domaine
+- **Application** : services, DTOs, interfaces de services, validations
+- **Infrastructure** : implémentations MongoDB, repositories, context
+- **API** : contrôleurs, configuration, middlewares
+
+Pour les détails complets : `.github/instructions/clean-architecture-instructions.md`
+
+### Règles essentielles
+
+- **Async/await** : obligatoire pour I/O et appels DB
+- **Injection de dépendances** : constructor injection uniquement
+- **Principes SOLID** : respecter les 5 principes (détails dans `csharp.instructions.md`)
+- **Nullable reference types** : activés dans `.csproj` avec `<Nullable>enable</Nullable>`
+- **Logging** : utiliser `ILogger<T>`, jamais `Console.WriteLine`
+- **Configuration** : pattern `IOptions<T>` pour accès typé à `appsettings.json`
+- **Formattage** : `dotnet format` avant chaque commit
+
+## Frontend — TypeScript / React / Vite
+
+### Règles essentielles
+
+- **TypeScript strict** : typage explicite pour composants, props, hooks
+- **Composants fonctionnels** : avec Hooks uniquement (pas de classes)
+- **Rules of React** : hooks au niveau supérieur, pas dans conditions/boucles
+- **Thinking in React** : décomposition UI, état minimal, props descendantes
+- **Variables d'environnement** : via `.env`, ne jamais committer de secrets
+- **Optimisations** : `React.memo`, `useMemo`, `useCallback` uniquement quand nécessaire
+- **Tests** : Vitest + React Testing Library (pas de tests d'implémentation)
+- **Formatage** : ESLint + Prettier, respecter `tsconfig.*.json`
+
+Pour les détails complets : `.github/instructions/react.instructions.md`
+
+## Persistance — MongoDB
+
+### Principes clés
+
+- **Séparation Domain/Infrastructure** : jamais d'`ObjectId` ou attributs MongoDB dans `Domain/`
+- **Documents vs Entités** : mapping dans les repositories uniquement
+- **Naming** : collections en minuscules pluriel (`users`, `words`), champs en camelCase
+- **ObjectId** : toujours valider avec `ObjectId.TryParse` avant utilisation
+- **Index** : créer des index pour champs fréquemment requis (username, email)
+- **Async** : toutes les opérations MongoDB en async/await
+- **DateTime** : utiliser `DateTime.UtcNow` exclusivement
+- **MongoDbContext** : enregistré en Singleton, repositories en Scoped
+
+Pour les détails complets : `.github/instructions/mongodb.instructions.md`
 
 ## Tests et qualité
 
-- Exiger que toute PR passe localement les étapes : Build → Lint → Tests.
-- Quality gates minimal :
-  - Build: `dotnet build` pour backend, `npm run build` pour frontend si applicable.
-  - Lint / Format: `dotnet format` et `npm run lint`.
-  - Tests unitaires : `dotnet test`, `npm test` ou `npm run test`.
-- Ajouter au moins :
-  - Un test happy-path.
-  - Un test d'erreur/limite pertinent.
-- Place des tests :
-  - Backend : dans le projet de test correspondant (créer `*.Tests` si nécessaire).
-  - Frontend : `src/__tests__` ou à côté des composants.
+### Quality Gates (obligatoire avant PR)
 
-## Sécurité et secrets
+1. **Build** : `dotnet build` (backend) + `npm run build` (frontend)
+2. **Format** : `dotnet format` (backend) + `npm run lint` (frontend)
+3. **Tests** : `dotnet test` (backend) + `npm test` (frontend)
 
-- Ne jamais ajouter de clés, mots de passe, tokens ou certificats en clair.
-- Utiliser variables d'environnement ou secret store (Azure Key Vault, GitHub Secrets).
-- Si une nouvelle configuration sécurisée est nécessaire, documenter la procédure d'accès dans `documentation/` (sans exposer les secrets).
-- Avant tout commit, vérifier `git diff` pour éviter inclusion accidentelle.
+### Couverture de tests minimale
 
-## Conventions de commit
+Chaque modification doit inclure :
 
-Format recommandé :
+- Un test **happy-path** (scénario nominal)
+- Un test **edge-case** ou erreur pertinent
 
-- type(scope): description
-- type ∈ {feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert}
-- Exemple : `feat(auth): ajouter la gestion OAuth2`
-- Exemple : `fix(deck): corriger le bug de création de deck`
-- Utiliser `!` pour breaking change : `refactor(api)!: changement breaking...`
+### Organisation des tests
 
-## PR / revue et CI
-
-- PR doit contenir :
-  - Titre clair, description courte, ticket associé (si existant).
-  - Checklist : Build, Lint, Tests (statuts CI green).
-  - Liste des fichiers modifiés et justification si changement d'API publique.
-- Etiquettes et reviewers : suivre la politique du repo (assigner au mainteneur si incertain).
-- Pour modifications d'API publique, documenter le contrat et notifier consommateurs.
+- **Backend** : dans projets `*.Tests` correspondants
+  - Tests unitaires : Domain, Application (avec mocks)
+  - Tests d'intégration : Infrastructure, API (avec base de test)
+- **Frontend** : `src/__tests__` ou à côté des composants
+  - Tests composants : React Testing Library
+  - Tests hooks : `@testing-library/react-hooks`
 
 ## Outils recommandés
 
-- Backend : dotnet 7/8 (selon CI), dotnet format, xUnit, Moq.
-- Frontend : Node 18+, npm, ESLint, Prettier, Vitest, React Testing Library.
-- CI : vérifier pipeline pour l'exécution de `dotnet build`, `dotnet test`, `npm install`, `npm test`.
+- Backend : dotnet 8, dotnet format, xUnit, Moq
+- Frontend : Node 20+, npm, ESLint, Prettier, Vitest, React Testing Library
+- MongoDB : MongoDB C# Driver 2.x+, voir `mongodb.instructions.md`
+- Docker : docker-compose pour orchestration locale
+- CI : vérifier pipeline pour l'exécution de `dotnet build`, `dotnet test`, `npm install`, `npm test`
 
-## Bonnes pratiques pour Copilot / suggestions automatiques
+## Processus de contribution
 
-- Do :
-  - Fournir un bref but du snippet proposé.
-  - Inclure tests unitaires minimal quand c'est pertinent.
-  - Préférer solutions simples et idiomatiques.
-- Don't :
-  - Ne pas ajouter de secrets en clair.
-  - Ne pas modifier `appsettings*.json` pour y insérer des credentials.
-  - Ne pas supprimer des fichiers projet sans justification.
-- Si incertitude fonctionnelle : créer une issue ou demander un reviewer humain.
+### Avant d'implémenter
 
-## Autres fichiers d'instructions
+1. **Questions de suivi** : pour modifications non triviales, consultez `.github/instructions/instruction-relative-aux-questions-de-suivi.md`
+2. **Documenter les hypothèses** : inclure estimation de confiance et hypothèses dans la PR
+3. **Vérifier les instructions** : consulter fichiers spécifiques dans `.github/instructions/`
 
-Consultez le répertoire `.github/instructions/` pour règles additionnelles (ex : `clean-architecture-instructions.md`, `instruction-relative-aux-questions-de-suivi.md`)
+### Bonnes pratiques Copilot
 
-## Notes finales
+**DO** :
 
-- Ces règles sont vivantes — mettez à jour la section "Dernière mise à jour" quand vous changez ce fichier.
-- Si vous voulez que j'applique ces changements dans le dépôt, dites-le et je fournis un patch/commit recommandé.
+- Fournir un bref contexte du snippet proposé
+- Inclure tests unitaires pertinents
+- Préférer solutions simples et idiomatiques
+- Respecter les principes SOLID et Clean Architecture
+- Documenter les décisions techniques
+
+**DON'T** :
+
+- ❌ Ajouter des secrets en clair
+- ❌ Modifier `appsettings*.json` avec credentials
+- ❌ Supprimer des fichiers projet sans justification
+- ❌ Exposer types MongoDB (`ObjectId`) dans Domain
+- ❌ Utiliser `Console.WriteLine` au lieu de `ILogger<T>`
+
+### En cas d'incertitude
+
+Demander confirmation au développeur plutôt que de deviner.
+
+## Fichiers d'instructions détaillés
+
+Consultez `.github/instructions/` pour règles complètes :
+
+| Fichier                                          | Scope                               | Description                                          |
+| ------------------------------------------------ | ----------------------------------- | ---------------------------------------------------- |
+| `clean-architecture-instructions.md`             | `**/*.cs`                           | Structure Clean Architecture, séparation des couches |
+| `csharp.instructions.md`                         | `**/*.cs`                           | Conventions C#, SOLID, async/await, DI, tests        |
+| `react.instructions.md`                          | `PolyglotteFrontend/**`             | Rules of React, Hooks, TypeScript, optimisations     |
+| `mongodb.instructions.md`                        | `Polyglotte.Infrastructure/**/*.cs` | MongoDB patterns, indexation, mapping                |
+| `instruction-relative-aux-questions-de-suivi.md` | Tous                                | Processus clarification avant implémentation         |

@@ -69,9 +69,9 @@ function Show-Services {
     podman-compose ps
     
     Write-Host "Points d'acces:" -ForegroundColor Yellow
-    Write-Host "Frontend (React):   http://localhost" -ForegroundColor White
-    Write-Host "Backend API:        http://localhost:5236" -ForegroundColor White
-    Write-Host "MongoDB:            localhost:27017" -ForegroundColor White
+    Write-Host "Frontend (React):   http://localhost:8080" -ForegroundColor Cyan
+    Write-Host "Backend API:        http://localhost:5236" -ForegroundColor Magenta
+    Write-Host "MongoDB:            localhost:27017" -ForegroundColor Green
     Write-Host "API Swagger:        http://localhost:5236/swagger" -ForegroundColor White
 }
 
